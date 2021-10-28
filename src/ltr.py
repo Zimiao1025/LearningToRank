@@ -1,6 +1,7 @@
 import lightgbm as lgb
 import numpy as np
 
+
 def train(x_train, y_train, q_train, model_save_path):
     """
     模型的训练和保存
@@ -21,7 +22,8 @@ def train(x_train, y_train, q_train, model_save_path):
         'metric_freq': 1,  # 每隔多少次输出一次度量结果
         'train_metric': True,  # 训练时就输出度量结果
         'ndcg_at': [10],
-        'max_bin': 255,  # 一个整数，表示最大的桶的数量。默认值为 255。lightgbm 会根据它来自动压缩内存。如max_bin=255 时，则lightgbm 将使用uint8 来表示特征的每一个值。
+        'max_bin': 255,  # 一个整数，表示最大的桶的数量。默认值为 255。lightgbm 会根据它来自动压缩内存。
+                         # 如max_bin=255 时，则lightgbm 将使用uint8 来表示特征的每一个值。
         'num_iterations': 200,  # 迭代次数，即生成的树的棵数
         'learning_rate': 0.01,  # 学习率
         'num_leaves': 31,  # 叶子数
@@ -45,9 +47,9 @@ def predict(x_test, comments, model_input_path):
 
     gbm = lgb.Booster(model_file=model_input_path)  # 加载model
 
-    ypred = gbm.predict(x_test)
+    y_pre = gbm.predict(x_test)
 
-    predicted_sorted_indexes = np.argsort(ypred)[::-1]  # 返回从大到小的索引
+    predicted_sorted_indexes = np.argsort(y_pre)[::-1]  # 返回从大到小的索引
 
     t_results = comments[predicted_sorted_indexes]  # 返回对应的comments,从大到小的排序
 

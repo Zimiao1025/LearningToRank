@@ -1,6 +1,7 @@
 from sklearn import datasets as ds
 import numpy as np
 
+
 def save_data(group_data, output_feature, output_group):
     """
     group与features分别进行保存
