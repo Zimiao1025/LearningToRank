@@ -1,6 +1,8 @@
 from sklearn import datasets as ds
 import numpy as np
 
+from data_format_read import read_dataset
+
 
 def save_data(group_data, output_feature, output_group):
     """
@@ -59,3 +61,15 @@ def load_data(feats, group):
     q_train = np.loadtxt(group)
 
     return x_train, y_train, q_train
+
+
+def load_data_from_raw(raw_data):
+    """
+    加载原始数据
+    :param raw_data:
+    :return:
+    """
+
+    with open(raw_data, 'r', encoding='utf-8') as testfile:
+        test_X, test_y, test_qids, comments = read_dataset(testfile)
+    return test_X, test_y, test_qids, comments
